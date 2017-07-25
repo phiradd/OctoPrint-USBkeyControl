@@ -11,7 +11,7 @@ from time import sleep
 
 ## TODO: replace the serial handling code with stdin/stdout calls
 
-class OctoremotePlugin(octoprint.plugin.SettingsPlugin,
+class USBkeyControlPlugin(octoprint.plugin.SettingsPlugin,
                        octoprint.plugin.AssetPlugin,
                        octoprint.plugin.TemplatePlugin,
 					   octoprint.plugin.StartupPlugin,
@@ -64,9 +64,9 @@ class OctoremotePlugin(octoprint.plugin.SettingsPlugin,
 		# Define your plugin's asset files to automatically include in the
 		# core UI here.
 		return dict(
-			js=["js/OctoRemote.js"],
-			css=["css/OctoRemote.css"],
-			less=["less/OctoRemote.less"]
+			js=["js/USBkeyControl.js"],
+			css=["css/USBkeyControl.css"],
+			less=["less/USBkeyControl.less"]
 		)
 
 	##~~ Softwareupdate hook
@@ -76,18 +76,18 @@ class OctoremotePlugin(octoprint.plugin.SettingsPlugin,
 		# Plugin here. See https://github.com/foosel/OctoPrint/wiki/Plugin:-Software-Update
 		# for details.
 		return dict(
-			OctoRemote=dict(
-				displayName="Octoremote Plugin",
+			USBkeyControl=dict(
+				displayName="USBkeyControl Plugin",
 				displayVersion=self._plugin_version,
 
 				# version check: github repository
 				type="github_release",
-				user="pkElectronics",
-				repo="OctoPrint-Octoremote",
+				user="rmoorewrs",
+				repo="OctoPrint-USBkeyControl",
 				current=self._plugin_version,
 
 				# update method: pip
-				pip="https://github.com/pkElectronics/OctoPrint-Octoremote/archive/{target_version}.zip"
+				pip="https://github.com/rmoore/OctoPrint-USBkeyControl/archive/{target_version}.zip"
 			)
 		)
 	def on_after_startup(self):
@@ -122,11 +122,11 @@ class OctoremotePlugin(octoprint.plugin.SettingsPlugin,
 # If you want your plugin to be registered within OctoPrint under a different name than what you defined in setup.py
 # ("OctoPrint-PluginSkeleton"), you may define that here. Same goes for the other metadata derived from setup.py that
 # can be overwritten via __plugin_xyz__ control properties. See the documentation for that.
-__plugin_name__ = "Octoremote Plugin"
+__plugin_name__ = "USBkeyControl Plugin"
 
 def __plugin_load__():
 	global __plugin_implementation__
-	__plugin_implementation__ = OctoremotePlugin()
+	__plugin_implementation__ = USBkeyControlPlugin()
 
 	global __plugin_hooks__
 	__plugin_hooks__ = {
@@ -173,7 +173,7 @@ class SerialThread(Thread):
 		self.baudrate = config["baudrate"]
 		self.toolcount = config["numberOfTools"]
 		if self.toolcount > 4:
-			callbackClass.getLogger().info("OctoRemote sanity check: Reverted Toolcount to 4, was"+self.toolcount)
+			callbackClass.getLogger().info("USBkeyControl sanity check: Reverted Toolcount to 4, was"+self.toolcount)
 			self.toolcount = 4
 
 		self.extrusionAmount = config["extrusionAmount"]
@@ -183,8 +183,8 @@ class SerialThread(Thread):
 			self.port = serial.Serial(self.portname, baudrate=self.baudrate, timeout=3.0)
 		except:
 			self.interrupt()
-			callbackClass.getLogger().error("Octoremote, could not open comport:"+self.portname)
-		callbackClass.getLogger().info("Octoremote Comthread started")
+			callbackClass.getLogger().error("USBkeyControl, could not open comport:"+self.portname)
+		callbackClass.getLogger().info("USBkeyControl Comthread started")
 		self.daemon = True
 		self.start()
 
