@@ -1,6 +1,8 @@
 # OctoPrint-USBkeyControl
 forked from pkElectronics/OctoPrint-Octoremote
 
+No substantial changes from Octoremote have been made yet!
+
 ## Work in Progress! Use with care ##
 
 Octoremote is a system to control serveral functions of your printer with a simple press of a button. Control the axis movement, manual extrusion and homing without the need of navigating through the printer menu or opening the Octopi GUI in your browser. 
@@ -39,4 +41,4 @@ It´s pretty easy, wait for Octoprint to start and start hitting the buttons, mo
 
 ## Hardware
 
-The original plugin uses an arduino with a custom keypad. This fork uses a standard USB keyboard or USB numberic keypad as a local keyboard controller
+The original plugin uses an arduino with a custom keypad. This fork will use a standard USB keyboard or USB numberic keypad as a local keyboard controller
