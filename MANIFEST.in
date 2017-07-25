@@ -1,2 +1,2 @@
 include README.md
-recursive-include octoprint_OctoRemote *
+recursive-include octoprint_USBkeyControl *
